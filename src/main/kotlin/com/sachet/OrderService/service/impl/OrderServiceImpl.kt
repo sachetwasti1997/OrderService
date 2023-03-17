@@ -1,16 +1,25 @@
 package com.sachet.OrderService.service.impl
 
+import com.sachet.OrderService.dto.OrderRequest
 import com.sachet.OrderService.exception.NotFoundException
 import com.sachet.OrderService.model.Order
 import com.sachet.OrderService.repository.OrderRepository
 import com.sachet.OrderService.service.OrderService
 import org.springframework.stereotype.Service
+import java.time.Instant
 
 @Service
 class OrderServiceImpl(
     private val orderRepository: OrderRepository
 ) : OrderService {
-    override fun save(order: Order): Order {
+    override fun save(orderRequest: OrderRequest): Order {
+        val order = Order().apply {
+            amount = orderRequest.totalAmount
+            orderStatus = "CREATED"
+            productId = orderRequest.productId
+            orderDate = Instant.now()
+            quantity = orderRequest.quantity
+        }
         return orderRepository.save(order)
     }
 

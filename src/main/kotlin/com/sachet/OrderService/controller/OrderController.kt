@@ -1,5 +1,6 @@
 package com.sachet.OrderService.controller
 
+import com.sachet.OrderService.dto.OrderRequest
 import com.sachet.OrderService.model.Order
 import com.sachet.OrderService.service.OrderService
 import org.springframework.http.HttpStatus
@@ -19,8 +20,8 @@ class OrderController(
 ) {
 
     @PostMapping("/create")
-    fun create(@RequestBody order: Order)
-    = ResponseEntity(orderService.save(order), HttpStatus.OK)
+    fun placeOrder(@RequestBody orderRequest: OrderRequest)
+    = ResponseEntity(orderService.save(orderRequest).orderId, HttpStatus.OK)
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long)
