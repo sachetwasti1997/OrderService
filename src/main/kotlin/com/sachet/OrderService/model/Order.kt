@@ -17,6 +17,8 @@ class Order (
 
     var productId: Long ?= null,
 
+    var paymentId: Long ?= null,
+
     var quantity: Long ?= null,
 
     var orderDate: Instant ?= null,
