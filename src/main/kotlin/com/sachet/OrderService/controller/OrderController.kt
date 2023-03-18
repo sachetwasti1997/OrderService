@@ -21,7 +21,7 @@ class OrderController(
 
     @PostMapping("/create")
     fun placeOrder(@RequestBody orderRequest: OrderRequest)
-    = ResponseEntity(orderService.save(orderRequest).orderId, HttpStatus.OK)
+    = ResponseEntity(orderService.save(orderRequest), HttpStatus.OK)
 
     @GetMapping("/{id}")
     fun getById(@PathVariable id: Long)

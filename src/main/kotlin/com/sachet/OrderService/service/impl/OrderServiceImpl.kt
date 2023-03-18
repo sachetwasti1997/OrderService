@@ -2,6 +2,7 @@ package com.sachet.OrderService.service.impl
 
 import com.sachet.OrderService.dto.OrderRequest
 import com.sachet.OrderService.exception.NotFoundException
+import com.sachet.OrderService.external.client.ProductService
 import com.sachet.OrderService.model.Order
 import com.sachet.OrderService.repository.OrderRepository
 import com.sachet.OrderService.service.OrderService
@@ -10,9 +11,11 @@ import java.time.Instant
 
 @Service
 class OrderServiceImpl(
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val productService: ProductService
 ) : OrderService {
     override fun save(orderRequest: OrderRequest): Order {
+        productService.reduceProduct(orderRequest.productId!!, orderRequest.quantity!!)
         val order = Order().apply {
             amount = orderRequest.totalAmount
             orderStatus = "CREATED"
